@@ -36,7 +36,8 @@ class WebController:
             alert = self.driver.switch_to.alert
             text = alert.text
 
-            print("alert : " + text)
+            print()
+            print(text)
             alert.accept()
 
     def logout_and_login_strategy(self):

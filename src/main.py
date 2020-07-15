@@ -1,41 +1,22 @@
-from os import error
-
-import src.web_controller as web_controller
-import keyboard
 import time
-import src.hometax as ht
+import sentry_sdk
+
+import src.key_handler as key_handler
+import src.config as config
+import src.web.controller as web_controller
+
+sentry_sdk.init("https://5901248f3e404f26a23cf974eacdc523@o289916.ingest.sentry.io/5338690")
 
 
-def main():
+def main() -> None:
     web = web_controller.WebController()
     web.init_chrome()
 
-    turn_off_the_alert = True
-
     while True:
 
-        if keyboard.is_pressed("F4"):
-            web.action_button_click(ht.ID.건별발급)
-            print("F7", str(ht.ID.건별발급))
+        key_handler.handler(web)
 
-        elif keyboard.is_pressed("F7"):
-            web.action_button_click(ht.ID.발급목록)
-            print("F7")
-
-        elif keyboard.is_pressed("F8"):
-            web.action_button_click(ht.ID.월분기별목록)
-            print("F8")
-
-        elif keyboard.is_pressed("F9"):
-            turn_off_the_alert = not turn_off_the_alert
-            print("알람", "켬" if turn_off_the_alert else "끔")
-            time.sleep(1)
-
-        elif keyboard.is_pressed("F10"):
-            print("F10")
-            web.logout_and_login_strategy()
-
-        if turn_off_the_alert:
+        if config.Web.alert_off:
             web.alert_handler()
 
         time.sleep(0.01)

@@ -1,7 +1,4 @@
 class ID(object):
-    """
-    Set of supported locator strategies.
-    """
 
     건별발급 = "menuAtag_0104010100"
     발급목록 = "menuAtag_0104020100"
