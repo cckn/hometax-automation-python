@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import src.hometax as ht
+
 
 class WebController:
     def __init__(self):
@@ -43,17 +45,23 @@ class WebController:
 
     def logout_and_login_strategy(self):
         if self.has_hometax_login():
-            self.action_button_click("로그아웃")
+            self.action_button_click_by_text("로그아웃")
             self.alert_handler()
             # wait
             wait = WebDriverWait(self.driver, 1000)
             wait.until(EC.presence_of_element_located((By.LINK_TEXT, "로그인")))
 
-        self.action_button_click("로그인")
+        self.action_button_click_by_text("로그인")
 
-    def action_button_click(self, button_name: str):
+    def action_button_click(self, button_id: str):
         try:
-            self.button_click(self.driver.find_element(By.PARTIAL_LINK_TEXT, button_name))
+            self.button_click(self.driver.find_element(By.ID, button_id))
+        except Exception as error:
+            print(error)
+
+    def action_button_click_by_text(self, text: str):
+        try:
+            self.button_click(self.driver.find_element(By.PARTIAL_LINK_TEXT, text))
         except Exception as error:
             print(error)
 
