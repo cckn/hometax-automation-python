@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import *
-import web_config
-import main
+from src import main, web_config
 
 
 class MyWindow(QMainWindow):
